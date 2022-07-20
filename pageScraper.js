@@ -13,8 +13,6 @@ const scraperObject = {
     await page.evaluate(() => {
       styleForPrintThermal();
     });
-    // wait for the img with id qrcode1 or qrcode2 or qrcode3 to load
-
     await page.waitForSelector("#qrcode1");
 
     const res = await page.content();
