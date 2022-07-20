@@ -29,3 +29,7 @@ app.get("/scrape", async (req, res) => {
     });
   }
 });
+// show app is running on /
+app.get("/", (req, res) => {
+  res.send("App is running on /");
+});
