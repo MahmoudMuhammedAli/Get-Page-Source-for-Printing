@@ -19,6 +19,7 @@ app.get("/scrape", async (req, res) => {
     res.send({
       status: 1,
       data: pageHTML,
+      message: "Successfully scraped the page",
     });
   } catch (err) {
     console.log("Could not resolve the browser instance => ", err);
