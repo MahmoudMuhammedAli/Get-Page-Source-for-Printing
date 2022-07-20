@@ -9,6 +9,11 @@ const scraperObject = {
     await page.goto(this.url, {
       waitUntil: "domcontentloaded",
     });
+    //todo excute the function styleForPrintThermal() to make teh page look like a thermal printer
+    await page.evaluate(() => {
+      styleForPrintThermal();
+    });
+
     const res = await page.content();
     await browser.close();
     return res;
