@@ -1,11 +1,38 @@
 const browserObject = require("./browser");
 const scraperController = require("./pageController");
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 5555;
 
-//Start the browser and create a browser instance
-let browserInstance = browserObject.startBrowser();
-
-// Pass the browser instance to the scraper controller
-scraperController(
-  browserInstance,
-  "https://cp.freaksofnature.me/home/tickets_invoice?t=fda7c5aa7a4e42e9a379a3051cf7202ee008a029"
-);
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
+//Handle the request
+app.get("/scrape", async (req, res) => {
+  let url = req.query.url;
+  console.log("🚀 ~ file: index.js ~ line 13 ~ app.get ~ url", url);
+  //show the request.body
+  console.log("🚀 ~ file: index.js ~ line 15 ~ app.get ~ req.body", req.body);
+  let browserInstance = browserObject.startBrowser();
+  let browser;
+  try {
+    browser = await browserInstance;
+    await scraperController(browser, url);
+    res.send("Scraping complete");
+  } catch (err) {
+    console.log("Could not resolve the browser instance => ", err);
+  }
+});
+//Handle the request
+app.get("/scrape/:url", async (req, res) => {
+  let url = req.params.url;
+  let browser;
+  try {
+    browser = await browserInstance;
+    await scraperController(browser, url);
+    res.send(1);
+  } catch (err) {
+    console.log("Could not resolve the browser instance => ", err);
+    res.send(0);
+  }
+});
