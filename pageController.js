@@ -4,7 +4,8 @@ async function scrapeAll(browserInstance, url) {
   try {
     browser = await browserInstance;
     pageScraper.setUrl(url);
-    await pageScraper.scraper(browser);
+    let res = await pageScraper.scraper(browser);
+    return res;
   } catch (err) {
     console.log("Could not resolve the browser instance => ", err);
   }

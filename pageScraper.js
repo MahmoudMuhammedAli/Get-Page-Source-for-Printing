@@ -9,10 +9,9 @@ const scraperObject = {
     await page.goto(this.url, {
       waitUntil: "domcontentloaded",
     });
-    // Wait for 5 seconds
-
-    console.log(await page.content());
+    const res = await page.content();
     await browser.close();
+    return res;
   },
 };
 
